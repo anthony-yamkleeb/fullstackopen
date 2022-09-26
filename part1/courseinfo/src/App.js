@@ -1,56 +1,63 @@
-const Header = (props) => {
-  return <h1>{props.header}</h1>;
-};
+import { useState } from "react";
+import Course from "./componets/Course";
 
-const Part = (props) => {
-  return (
-    <p>
-      {props.course} {props.exercises}
-    </p>
-  );
-};
-
-const Content = (props) => {
-  const parts = props.parts;
+const Courses = ({ courses }) => {
   return (
     <div>
-      <Part course={parts[0].name} exercises={parts[0].exercises} />
-      <Part course={parts[1].name} exercises={parts[1].exercises} />
-      <Part course={parts[2].name} exercises={parts[2].exercises} />
+      {courses.map((part) => (
+        <Course key={part.id} course={part} />
+      ))}
     </div>
   );
-};
-const Total = (props) => {
-  const parts = props.parts;
-  return <p>{parts[0].exercises + parts[1].exercises + parts[2].exercises}</p>;
 };
 
 const App = () => {
-  const course = {
-    name: "Half Stack application development",
-    parts: [
-      {
-        name: "Half Stack application development",
-        exercises: 10,
-      },
-      {
-        name: "Using props to pass data",
-        exercises: 7,
-      },
-      {
-        name: "State of a component",
-        exercises: 14,
-      },
-    ],
-  };
+  const courses = [
+    {
+      name: "Half Stack application development",
+      id: 1,
+      parts: [
+        {
+          name: "Fundamentals of React",
+          exercises: 10,
+          id: 1,
+        },
+        {
+          name: "Using props to pass data",
+          exercises: 7,
+          id: 2,
+        },
+        {
+          name: "State of a component",
+          exercises: 14,
+          id: 3,
+        },
+        {
+          name: "Redux",
+          exercises: 11,
+          id: 4,
+        },
+      ],
+    },
+    {
+      name: "Node.js",
+      id: 2,
+      parts: [
+        {
+          name: "Routing",
+          exercises: 3,
+          id: 1,
+        },
+        {
+          name: "Middlewares",
+          exercises: 7,
+          id: 2,
+        },
+      ],
+    },
+  ];
 
-  return (
-    <div>
-      <Header header={course.name} />
-      <Content parts={course.parts} />
-      <Total parts={course.parts} />
-    </div>
-  );
+  return <Courses courses={courses} />;
 };
 
 export default App;
